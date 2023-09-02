@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    body{
+        content: '';
+        background-color: crimson;
+
+    }
+
+
+    .title,
+    .buttons,h2 {
+        color: white;
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+    .title{
+        font-size: 20px;
+    }
+    #result{
+        margin-top: 25px;
+    }
+
+    .buttons button {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
+        border: none;
+        border-radius: 50%;
+    }
+    #buttonRock{
+        background-image: url(./static/rock.jpg);
+        width: 100px;
+        height: 100px;
+        background-size: contain;
+        filter: grayscale(100%);
+        margin-right: 15px;
+        transition-property: all;
+    }
+    #buttonPaper{
+        background-image: url(./static/paper.jpg);
+        width: 100px;
+        height: 100px;
+        background-size: contain;
+        filter: grayscale(100%);
+        margin-right: 15px;
+    }
+    #buttonScissor{
+        background-image: url(./static/scissor.jpg);
+        width: 100px;
+        height: 100px;
+        background-size: contain;
+        filter: grayscale(100%);
+    }
+    #buttonRock:hover{
+        filter: drop-shadow(8px 8px 10px black);
+        cursor: pointer;
+    }
+    #buttonPaper:hover{
+        filter: drop-shadow(8px 8px 10px black);
+        cursor: pointer;
+    }
+    #buttonScissor:hover{
+        filter: drop-shadow(8px 8px 10px black);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="mainContainer">
+        <div class="playerConsole">
+            <h2>Rock Paper Scissors Game</h2>
+            <div class="title">Choose your move</div>
+            <div class="buttons">
+                <button onclick="userMove('ROCK');" id="buttonRock"></button>
+                <button onclick="userMove('PAPER');" id="buttonPaper"></button>
+                <button onclick="userMove('SCISSOR');" id="buttonScissor"></button>
+            </div>
+        </div>
+        <div class="title offset">
+            <div class="userPick">You have chose:</div>
+            <div class="compPick">Computer's pick:</div>
+            <div class="result" id="result">RESULT:</div>
+        </div>
+    </div>
+    <script>
+        const compMove = () => {
+            const moves = ["ROCK", "PAPER", "SCISSOR"];
+            randomindex = Math.floor((Math.random()) * moves.length);
+            randommove = moves[randomindex];
+            compmove = randommove;
+        }
+        const userMove = (inputmove) => {
+            console.clear();
+            console.log(inputmove);
+            compMove();
+            console.log(compmove);
+
+            const i= inputmove.len;
+            const c= compmove.len;
+
+
+            if (inputmove == compmove) {
+                console.log("DRAW");
+            }
+            else if ((inputmove.length == 4) && (compmove.length == 7)) {
+                console.log("You won.");
+            }
+            else if ((inputmove.length == 4) && (compmove.length == 5)) {
+                console.log("You lost.");
+            }
+            else if ((inputmove.length == 5) && (compmove.length == 4)) {
+                console.log("You won.");
+            }
+            else if ((inputmove.length == 5) && (compmove.length == 7)) {
+                console.log("You lost.");
+            }
+            else if ((inputmove.length == 7) && (compmove.length == 5)) {
+                console.log("You won.");
+            }
+            else if ((inputmove.length == 7) && (compmove.length == 4)) {
+                console.log("You lost.");
+            }
+            else {
+                console.log("You lost");
+            }
+            
+        }
+
+    </script>
+</body>
+
+</html>
