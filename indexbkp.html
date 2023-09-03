@@ -4,14 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@500;700&family=Lalezar&display=swap"
+        rel="stylesheet">
+    <meta name="theme-color" content="#dc143c" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#dc143c">
 </head>
 <style>
     * {
         margin: 0px;
         padding: 0px;
+        font-family: 'Karla', sans-serif;
+
     }
-    body{
+
+    .mainContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .scorecard {
+        display: flex;
+        width: fit-content;
+        margin: 0px auto;
+        border: 2px solid white;
+        border-radius: 8px;
+        justify-content: space-evenly;
+    }
+
+    .stats {
+        color: white;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 2px;
+
+    }
+
+    #reset {
+        align-self: center;
+        border: 2px solid white;
+        border-radius: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-bottom: 4px;
+    }
+
+    #reset:hover {
+        color: crimson;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .statsContent {
+        text-align: center;
+    }
+
+    body {
         content: '';
         background-color: crimson;
 
@@ -19,16 +71,19 @@
 
 
     .title,
-    .buttons,h2 {
+    .buttons,
+    h2 {
         color: white;
         text-align: center;
-        margin-top: 40px;
+        margin-top: 20px;
         margin-bottom: 20px;
     }
-    .title{
+
+    .title {
         font-size: 20px;
     }
-    #result{
+
+    #result {
         margin-top: 25px;
     }
 
@@ -40,7 +95,8 @@
         border: none;
         border-radius: 50%;
     }
-    #buttonRock{
+
+    #buttonRock {
         background-image: url(./static/rock.jpg);
         width: 100px;
         height: 100px;
@@ -49,7 +105,8 @@
         margin-right: 15px;
         transition-property: all;
     }
-    #buttonPaper{
+
+    #buttonPaper {
         background-image: url(./static/paper.jpg);
         width: 100px;
         height: 100px;
@@ -57,24 +114,33 @@
         filter: grayscale(100%);
         margin-right: 15px;
     }
-    #buttonScissor{
+
+    #buttonScissor {
         background-image: url(./static/scissor.jpg);
         width: 100px;
         height: 100px;
         background-size: contain;
         filter: grayscale(100%);
     }
-    #buttonRock:hover{
+
+    #buttonRock:hover {
         filter: drop-shadow(8px 8px 10px black);
         cursor: pointer;
     }
-    #buttonPaper:hover{
+
+    #buttonPaper:hover {
         filter: drop-shadow(8px 8px 10px black);
         cursor: pointer;
     }
-    #buttonScissor:hover{
+
+    #buttonScissor:hover {
         filter: drop-shadow(8px 8px 10px black);
         cursor: pointer;
+    }
+
+    #result {
+        font-family: 'Lalezar', cursive;
+        font-size: 30px;
     }
 </style>
 
@@ -90,12 +156,33 @@
             </div>
         </div>
         <div class="title offset">
-            <div class="userPick">You have chose:</div>
-            <div class="compPick">Computer's pick:</div>
+            <div class="userPick">Your Pick:</div>
+            <div class="compPick">Computer's Pick:</div>
             <div class="result" id="result">RESULT:</div>
+        </div>
+        <div class="scorecard">
+            <div class="stats">Matches
+                <div id="matches" class="statsContent">0</div>
+            </div>
+            <div class="stats">Won
+                <div id="won" class="statsContent">0</div>
+            </div>
+            <div class="stats">Lost
+                <div id="lost" class="statsContent">0</div>
+            </div>
+            <div class="stats">Drawn
+                <div id="drawn" class="statsContent">0</div>
+            </div>
+            <div class="stats" onclick="reset();" id="reset">Reset</div>
         </div>
     </div>
     <script>
+        const score = {
+            won: 0,
+            lost: 0,
+            drawn: 0,
+            matches: 0
+        };
         const compMove = () => {
             const moves = ["ROCK", "PAPER", "SCISSOR"];
             randomindex = Math.floor((Math.random()) * moves.length);
@@ -108,36 +195,89 @@
             compMove();
             console.log(compmove);
 
-            const i= inputmove.len;
-            const c= compmove.len;
+            const i = inputmove.len;
+            const c = compmove.len;
+            let resHolder = "";
 
 
             if (inputmove == compmove) {
                 console.log("DRAW");
+                resHolder = "DRAW";
+                score.drawn = score.drawn + 1;
             }
             else if ((inputmove.length == 4) && (compmove.length == 7)) {
                 console.log("You won.");
+                resHolder = "You have WON";
+                score.won = score.won + 1;
             }
             else if ((inputmove.length == 4) && (compmove.length == 5)) {
                 console.log("You lost.");
+                resHolder = "You have LOST";
+                score.lost = score.lost + 1;
             }
             else if ((inputmove.length == 5) && (compmove.length == 4)) {
                 console.log("You won.");
+                resHolder = "You have WON";
+                score.won = score.won + 1;
             }
             else if ((inputmove.length == 5) && (compmove.length == 7)) {
                 console.log("You lost.");
+                resHolder = "You have LOST";
+                score.lost = score.lost + 1;
             }
             else if ((inputmove.length == 7) && (compmove.length == 5)) {
                 console.log("You won.");
+                resHolder = "You have WON";
+                score.won = score.won + 1;
             }
             else if ((inputmove.length == 7) && (compmove.length == 4)) {
                 console.log("You lost.");
+                resHolder = "You have LOST";
+                score.lost = score.lost + 1;
             }
             else {
                 console.log("You lost");
             }
-            
+
+            score.matches += 1;
+
+            const myPick = document.querySelector('.userPick');
+            const compuPick = document.querySelector('.compPick');
+            const result = document.querySelector('.result');
+
+            myPick.innerHTML = `Your Pick: ${inputmove}`;
+            compuPick.innerHTML = `Computer's Pick: ${compmove}`;
+            result.innerHTML = `Result: ${resHolder}`;
+
+
+            const matches = document.querySelector('#matches');
+            const won = document.querySelector('#won');
+            const lost = document.querySelector('#lost');
+            const drawn = document.querySelector('#drawn');
+            const reset = document.querySelector('#reset');
+
+
+
+
+            matches.innerHTML = `${score.matches}`;
+            won.innerHTML = `${score.won}`;
+            lost.innerHTML = `${score.lost}`;
+            drawn.innerHTML = `${score.drawn}`;
+
+
         }
+        function reset() {
+            score.matches= 0;
+            score.won= 0;
+            score.lost= 0;
+            score.drawn= 0;
+
+            matches.innerHTML = `${score.matches}`;
+            won.innerHTML = `${score.won}`;
+            lost.innerHTML = `${score.lost}`;
+            drawn.innerHTML = `${score.drawn}`;
+
+        };
 
     </script>
 </body>
