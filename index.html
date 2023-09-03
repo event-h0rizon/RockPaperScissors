@@ -177,7 +177,15 @@
         </div>
     </div>
     <script>
-        const score = JSON.parse(localStorage.getItem('score'));
+        let score = JSON.parse(localStorage.getItem('score'));
+        if (!score) {
+            score = {
+                won: 0,
+                lost: 0,
+                drawn: 0,
+                matches: 0
+            };
+        };
         matches.innerHTML = `${score.matches}`;
         won.innerHTML = `${score.won}`;
         lost.innerHTML = `${score.lost}`;
